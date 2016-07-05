@@ -16,6 +16,8 @@
 		A3458B0A1D2664FB0073A158 /* AGTBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3458B091D2664FB0073A158 /* AGTBook.swift */; };
 		A3483BC51D283EF400BB4A62 /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483BC41D283EF400BB4A62 /* JSONProcessing.swift */; };
 		A3483BC71D283F9900BB4A62 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483BC61D283F9900BB4A62 /* Errors.swift */; };
+		A34D42311D2C2C2E00F7CE0E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34D42301D2C2C2E00F7CE0E /* Tag.swift */; };
+		A34D42331D2C31F300F7CE0E /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34D42321D2C31F300F7CE0E /* Foundation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		A3458B091D2664FB0073A158 /* AGTBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTBook.swift; sourceTree = "<group>"; };
 		A3483BC41D283EF400BB4A62 /* JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
 		A3483BC61D283F9900BB4A62 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		A34D42301D2C2C2E00F7CE0E /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		A34D42321D2C31F300F7CE0E /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,7 @@
 		A3458B051D2662C60073A158 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A34D42321D2C31F300F7CE0E /* Foundation.swift */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,6 +164,7 @@
 				A3458B091D2664FB0073A158 /* AGTBook.swift */,
 				A3483BC41D283EF400BB4A62 /* JSONProcessing.swift */,
 				A3483BC61D283F9900BB4A62 /* Errors.swift */,
+				A34D42301D2C2C2E00F7CE0E /* Tag.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -294,8 +300,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A34D42331D2C31F300F7CE0E /* Foundation.swift in Sources */,
 				A3483BC71D283F9900BB4A62 /* Errors.swift in Sources */,
 				A3483BC51D283EF400BB4A62 /* JSONProcessing.swift in Sources */,
+				A34D42311D2C2C2E00F7CE0E /* Tag.swift in Sources */,
 				A3458AD61D2661CC0073A158 /* AppDelegate.swift in Sources */,
 				A3458B0A1D2664FB0073A158 /* AGTBook.swift in Sources */,
 			);

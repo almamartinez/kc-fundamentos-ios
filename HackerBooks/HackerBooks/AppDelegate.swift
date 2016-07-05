@@ -8,6 +8,8 @@
 
 import UIKit
 
+let jsonLocalFile = "books_readable.json"
+let jsonExternalFile = "https://t.co/K9ziV0z3SJ"
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,8 +17,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let bundle = NSBundle.mainBundle()
+        var jsonUrl = bundle.URLForResource(jsonLocalFile)
+        if (jsonUrl == nil){
+            jsonUrl = NSURL(string: jsonExternalFile)
+        }
+        if jsonUrl==nil {
+            fatalError("Error while loading JSON")
+        }
+        var books = [AGTBook]()
+        do{
+            let json = try loadJSONFromURL(fileURL: jsonUrl!)
+            for dict in json{
+                do{
+                    let book = try decode(bookList: dict)
+                    books.append(book)
+                }catch{
+                    fatalError("Error while processing JSON")
+                }
+            }
+            print(books)
+            return true
+            
+        }catch{
+            fatalError("Error while loading JSON")
+        }
+
+        
+        
+        
+        
+        
     }
 
     func applicationWillResignActive(application: UIApplication) {

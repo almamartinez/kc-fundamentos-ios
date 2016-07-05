@@ -12,11 +12,11 @@ import UIKit
 class AGTBook {
     
     //MARK: - Stored Properties
-    let title       : String?
-    let img      : UIImage
+    let title       : String
+    let img         : NSURL
     let pdfUrl      : NSURL
     let authors     : [String]
-    let tags        : [String]
+    let tags        : [Tag]
 
 
     var strAuthors  : String?{
@@ -33,7 +33,7 @@ class AGTBook {
     }
     
     //MARK: - Initialization
-    init(title : String, img : UIImage, pdfUrl : NSURL, authors : [String], tags : [String]){
+    init(title : String, img : NSURL, pdfUrl : NSURL, authors : [String], tags : [Tag]){
         self.title      = title
         self.authors    = authors
         self.tags       = tags
