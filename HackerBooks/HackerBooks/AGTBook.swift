@@ -13,7 +13,7 @@ class AGTBook {
     
     //MARK: - Stored Properties
     let title       : String
-    let img         : NSURL
+    let imgUrl         : NSURL
     let pdfUrl      : NSURL
     let authors     : [String]
     let tags        : [Tag]
@@ -37,8 +37,31 @@ class AGTBook {
         self.title      = title
         self.authors    = authors
         self.tags       = tags
-        self.img        = img
+        self.imgUrl     = img
         self.pdfUrl     = pdfUrl
     }
+    
+    //MARK: - Computed properties
+    var bookImage : UIImage {
+        get{
+            do{
+                return try loadImage(fromURL: imgUrl)
+            }catch{
+                fatalError("Error while loading an Image")
+            }
+        }
+    }
+    
+    var bookPdfData : NSData {
+        get{
+            do{
+                return try loadPdf(fromURL: imgUrl)
+            }catch{
+                fatalError("Error while loading a Pdf")
+            }
+
+        }
+    }
+    
     
 }

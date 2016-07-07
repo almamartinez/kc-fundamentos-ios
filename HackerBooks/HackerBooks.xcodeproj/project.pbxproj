@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A33A15341D2ED3F80010F828 /* AGTLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A15331D2ED3F80010F828 /* AGTLibrary.swift */; };
 		A3458AD61D2661CC0073A158 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3458AD51D2661CC0073A158 /* AppDelegate.swift */; };
 		A3458ADD1D2661CC0073A158 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3458ADC1D2661CC0073A158 /* Assets.xcassets */; };
 		A3458AE01D2661CC0073A158 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3458ADE1D2661CC0073A158 /* LaunchScreen.storyboard */; };
 		A3458AEB1D2661CC0073A158 /* HackerBooksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3458AEA1D2661CC0073A158 /* HackerBooksTests.swift */; };
 		A3458AF61D2661CC0073A158 /* HackerBooksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3458AF51D2661CC0073A158 /* HackerBooksUITests.swift */; };
-		A3458B041D2662A80073A158 /* resources in Resources */ = {isa = PBXBuildFile; fileRef = A3458B031D2662A80073A158 /* resources */; };
 		A3458B0A1D2664FB0073A158 /* AGTBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3458B091D2664FB0073A158 /* AGTBook.swift */; };
 		A3483BC51D283EF400BB4A62 /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483BC41D283EF400BB4A62 /* JSONProcessing.swift */; };
 		A3483BC71D283F9900BB4A62 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483BC61D283F9900BB4A62 /* Errors.swift */; };
@@ -38,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A33A15331D2ED3F80010F828 /* AGTLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibrary.swift; sourceTree = "<group>"; };
 		A3458AD21D2661CC0073A158 /* HackerBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3458AD51D2661CC0073A158 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3458ADC1D2661CC0073A158 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,7 +50,6 @@
 		A3458AF11D2661CC0073A158 /* HackerBooksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerBooksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3458AF51D2661CC0073A158 /* HackerBooksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerBooksUITests.swift; sourceTree = "<group>"; };
 		A3458AF71D2661CC0073A158 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A3458B031D2662A80073A158 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../../resources; sourceTree = "<group>"; };
 		A3458B091D2664FB0073A158 /* AGTBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTBook.swift; sourceTree = "<group>"; };
 		A3483BC41D283EF400BB4A62 /* JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
 		A3483BC61D283F9900BB4A62 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
@@ -107,7 +107,6 @@
 			children = (
 				A3458B051D2662C60073A158 /* Frameworks */,
 				A3458B061D2662DD0073A158 /* App */,
-				A3458B031D2662A80073A158 /* resources */,
 				A3458AD51D2661CC0073A158 /* AppDelegate.swift */,
 				A3458ADC1D2661CC0073A158 /* Assets.xcassets */,
 				A3458ADE1D2661CC0073A158 /* LaunchScreen.storyboard */,
@@ -165,6 +164,7 @@
 				A3483BC41D283EF400BB4A62 /* JSONProcessing.swift */,
 				A3483BC61D283F9900BB4A62 /* Errors.swift */,
 				A34D42301D2C2C2E00F7CE0E /* Tag.swift */,
+				A33A15331D2ED3F80010F828 /* AGTLibrary.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -273,7 +273,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3458B041D2662A80073A158 /* resources in Resources */,
 				A3458AE01D2661CC0073A158 /* LaunchScreen.storyboard in Resources */,
 				A3458ADD1D2661CC0073A158 /* Assets.xcassets in Resources */,
 			);
@@ -304,6 +303,7 @@
 				A3483BC71D283F9900BB4A62 /* Errors.swift in Sources */,
 				A3483BC51D283EF400BB4A62 /* JSONProcessing.swift in Sources */,
 				A34D42311D2C2C2E00F7CE0E /* Tag.swift in Sources */,
+				A33A15341D2ED3F80010F828 /* AGTLibrary.swift in Sources */,
 				A3458AD61D2661CC0073A158 /* AppDelegate.swift in Sources */,
 				A3458B0A1D2664FB0073A158 /* AGTBook.swift in Sources */,
 			);
