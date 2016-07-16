@@ -18,10 +18,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        var books = [AGTBook]()
+        do{
+            let json = try loadJSONFromURL()
+            for dict in json{
+                do{
+                    let book = try decode(bookList: dict)
+                    books.append(book)
+                }catch{
+                    fatalError("Error while processing JSON")
+                }
+            }
+        }catch{
+            fatalError("Error while loading JSON")
+        }
+        let model = AGTLibrary(withBooks: books)
         
-        let model = AGTLibrary()
-        print(model)
+        let libVC = LibraryViewControler(model: model)
+        var img =  UIImage(named: "byTitle.png")
         
+        libVC.tabBarItem = UITabBarItem(title: "Libros", image:img, tag: 1)
+        let bkVC = BookViewController(model: model.books[0])
+        //libVC.delegate=bkVC
+        
+        let tagVC = TagLibraryViewController(model : model)
+        img =  UIImage(named: "byTag.png")
+        tagVC.tabBarItem = UITabBarItem(title: "Tags", image: img, tag: 2)
+        
+        let tb = UITabBarController()
+        
+        tb.setViewControllers([libVC,tagVC], animated: true)
+        tb.title = "Library"
+        let uNav = UINavigationController(rootViewController: tb)
+        
+        
+        window?.rootViewController=uNav
+        
+        // hacer visible & key a la window
+        window?.makeKeyAndVisible()
         
         
         

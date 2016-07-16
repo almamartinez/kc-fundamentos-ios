@@ -18,6 +18,9 @@ import UIKit
  }
  
  */
+
+
+//MARK : - Constants
 let authors = "authors"
 let imageURL = "image_url"
 let pdfURL = "pdf_url"
@@ -25,6 +28,7 @@ let tags = "tags"
 let title = "title"
 let jsonLocalFile = "books_readable.json"
 let jsonExternalFile = "https://t.co/K9ziV0z3SJ"
+let favoritesBooks = "favoritesBooks"
 
 //MARK : - Aliases
 typealias JSONObject        =   AnyObject
@@ -105,35 +109,6 @@ func parseJSON(withData data : NSData) throws -> JSONArray? {
 
 }
 
-//
-//let ImagesDefault = "imagesList"
-func loadImage(fromURL url: NSURL) throws -> UIImage {
-//    let usrDef = NSUserDefaults()
-//    
-//    guard var imagesList = usrDef.dictionaryForKey(ImagesDefault) else{
-//        // No existe el diccionario, lo creamos
-//        usrDef.setObject( , forKey: <#T##String#>)
-//    }
-//    
-//    {
-//        if let img = imagesList[url.absoluteString] as? UIImage{
-//            return img
-//        }
-//        else {
-//            //No existe la imagen, la descargamos y la metemos en el diccionario
-//        }
-//    }
-//    else{
-//        //Creamos el diccionario, lo almacenamos
-//    }
-    
-    guard let data = NSData.init(contentsOfURL: url),
-        image = UIImage.init(data: data) else{
-            throw HackerBooksErrors.resourcePointedByURLNotReachable
-    }
-    return image
-}
-//
 
 func loadPdf(fromURL url:NSURL) throws -> NSData {
     guard let data = NSData.init(contentsOfURL: url) else{

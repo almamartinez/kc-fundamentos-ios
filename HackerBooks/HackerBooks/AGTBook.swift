@@ -9,7 +9,11 @@
 import Foundation
 import UIKit
 
-class AGTBook {
+let FavoriteDidChangeNotification = "isFavorite has changed"
+let BookImageDidChangeNotification = "bookImage has changed"
+let BookKey = "Book"
+
+class AGTBook: Comparable {
     
     //MARK: - Stored Properties
     let title       : String
@@ -17,20 +21,11 @@ class AGTBook {
     let pdfUrl      : NSURL
     let authors     : [String]
     let tags        : [Tag]
+    var isFavourite : Bool
 
 
-    var strAuthors  : String?{
-        get{
-            var str = ""
-            for author in authors{
-                str += author + ","
-            }
-            //str = str-1
-            str.removeAtIndex(str.endIndex)
-            return str
-            
-        }
-    }
+    
+    
     
     //MARK: - Initialization
     init(title : String, img : NSURL, pdfUrl : NSURL, authors : [String], tags : [Tag]){
@@ -39,16 +34,49 @@ class AGTBook {
         self.tags       = tags
         self.imgUrl     = img
         self.pdfUrl     = pdfUrl
+        isFavourite     = false
+        let usrDef = NSUserDefaults()
+        if let listOfFavs = usrDef.arrayForKey(favoritesBooks){
+            isFavourite = listOfFavs.contains({$0 as? String == self.title})
+        }
+        // Alta en notificaciones cuando cambia una imagen de un libro.
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(reloadBook), name: ImageDidLoadNotification, object: nil)
+
     }
     
+    
     //MARK: - Computed properties
-    var bookImage : UIImage {
+    var strAuthors  : String?{
         get{
-            do{
-                return try loadImage(fromURL: imgUrl)
-            }catch{
-                fatalError("Error while loading an Image")
+            return authors.joinWithSeparator(",")
+        }
+    }
+    
+    var strTags : String?{
+        get{
+            var str = ""
+            for tg in tags{
+                str = str.stringByAppendingString(tg.name).stringByAppendingString(",")
             }
+            str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: ","))
+            return str
+        }
+    }
+    var bookImage : UIImage? {
+        get{
+            //Si está en userDefaults, lo devolvemos tal cual
+            let usrDef = NSUserDefaults()
+            if let listOfImages = usrDef.dictionaryForKey(imageList),
+                data = listOfImages[imgUrl.absoluteString] as? NSData,
+                img = UIImage(data:data){
+                   return img
+            }
+            else{//Si no, cargamos la imagen asícronamente
+                let placeHolder = UIImage(named: "placeholder.jpg")
+                let img = AsyncImage(urlImage: imgUrl,placeHolder: placeHolder)
+                return img.imageLoaded
+            }            
         }
     }
     
@@ -63,5 +91,67 @@ class AGTBook {
         }
     }
     
+    @objc
+    func reloadBook(n : NSNotification)  {
+        //Enviamos info vía notificaciones
+        let nc = NSNotificationCenter.defaultCenter()
+        
+        let notif = NSNotification(name: BookImageDidChangeNotification, object: self, userInfo: [BookKey : self])
+        nc.postNotification(notif)
+    }
+   func changeFavorite(){
     
+        let usrDef = NSUserDefaults()
+        var listOfFavs = usrDef.arrayForKey(favoritesBooks)
+        if listOfFavs == nil{
+            listOfFavs=[AnyObject]?()
+        }
+        if isFavourite{
+            //Eliminarlo de la lista
+            let index = listOfFavs!.indexOf({$0 as? String == self.title})
+            if !(index == nil){
+                listOfFavs!.removeAtIndex(index!)
+                isFavourite=false
+            }
+        }else{
+            //Añadir a la lista
+            listOfFavs!.append(self.title)
+            isFavourite=true
+        }
+    
+        usrDef.setValue(listOfFavs, forKey: favoritesBooks)
+        usrDef.synchronize()
+    
+        //Enviamos info vía notificaciones
+        let nc = NSNotificationCenter.defaultCenter()
+    
+        let notif = NSNotification(name: FavoriteDidChangeNotification, object: self, userInfo: [BookKey : self])
+        nc.postNotification(notif)
+   }
+    
+    var proxyForComparison : String{
+        get{
+            
+            let str = "\(title)\(strAuthors)"
+            var t = ""
+            for each in tags.sort(){
+                t = t.stringByAppendingString(each.name)
+            }
+            return str.stringByAppendingString(t)
+        }
+    }
+    
+}
+
+func ==(lhs: AGTBook, rhs: AGTBook) -> Bool {
+    guard (lhs !== rhs) else{
+        return true
+    }
+    
+    return (lhs.proxyForComparison == rhs.proxyForComparison)
+    
+}
+
+func < (lhs: AGTBook, rhs: AGTBook) -> Bool {
+    return lhs.title < rhs.title
 }

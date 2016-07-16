@@ -8,7 +8,7 @@
 
 import Foundation
 
-let Favourite = "Favorito"
+let Favourite = "Favoritos"
 class Tag:Comparable, Hashable {
     
     //MARK: - Stored properties
@@ -33,9 +33,13 @@ func ==(lhs: Tag, rhs: Tag) -> Bool {
     
     return lhs.name == rhs.name
 }
+
 func < (lhs: Tag, rhs: Tag) -> Bool {
-    guard (lhs.name != Favourite) else{
+    if lhs.name == Favourite{
         return true
+    }
+    if rhs.name == Favourite{
+        return false
     }
     return lhs.name < rhs.name
 }
