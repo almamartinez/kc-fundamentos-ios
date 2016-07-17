@@ -34,25 +34,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let model = AGTLibrary(withBooks: books)
         
+        //Controllador De los libros por título
         let libVC = LibraryViewControler(model: model)
         var img =  UIImage(named: "byTitle.png")
         
         libVC.tabBarItem = UITabBarItem(title: "Libros", image:img, tag: 1)
-        let bkVC = BookViewController(model: model.books[0])
-        //libVC.delegate=bkVC
         
+        //Controlador de los libros por Tag
         let tagVC = TagLibraryViewController(model : model)
         img =  UIImage(named: "byTag.png")
         tagVC.tabBarItem = UITabBarItem(title: "Tags", image: img, tag: 2)
         
+        //TabBarController para seleccionar uno u otro listado
         let tb = UITabBarController()
         
         tb.setViewControllers([libVC,tagVC], animated: true)
         tb.title = "Library"
+        
+        //NavigationController para controlar el Tab
         let uNav = UINavigationController(rootViewController: tb)
         
+        //Diferenciar entre iPhone y iPad:
+        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad{
+            //iPad
+            
+            let bkVC = BookViewController(model: model.books[0])
+            bkVC.favsDelegate = tagVC
+            libVC.delegate=bkVC
+            
+            //let bkVCTag = BookViewController(model: model.books[0])
+            tagVC.delegate=bkVC
+            //Navigation Controller para la derecha:
+            let bookNav = UINavigationController(rootViewController: bkVC)
+            //Split ViewController
+            let splitVC = UISplitViewController()
+            
+            splitVC.viewControllers = [uNav,bookNav]
+            splitVC.delegate = bkVC
+            window?.rootViewController = splitVC
+            
+        }
+        else{
+            //iPhone
+            libVC.delegate = libVC
+            tagVC.delegate = tagVC
+            window?.rootViewController=uNav
+        }
         
-        window?.rootViewController=uNav
+        
+        
         
         // hacer visible & key a la window
         window?.makeKeyAndVisible()

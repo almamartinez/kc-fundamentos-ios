@@ -143,6 +143,7 @@ class AGTLibrary {
         //No necesita pasar user info, siempre es lo mismo lo que cambia, sólo hay que actualizar favoritos.
         let notif = NSNotification(name: ListOfFavsDidChangeNotification, object: self, userInfo: nil)
         nc.postNotification(notif)
+        
     }
 }
 

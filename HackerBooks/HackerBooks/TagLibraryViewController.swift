@@ -8,9 +8,11 @@
 
 import UIKit
 
-class TagLibraryViewController: LibraryViewControler {
+class TagLibraryViewController: LibraryViewControler{
     
     
+    
+        
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,29 +38,25 @@ class TagLibraryViewController: LibraryViewControler {
         }        
     }
     
-    func reloadFavorites(notif: NSNotification) {
-        //tableView.reloadData()
+    func reloadFavorites(notif: NSNotification){
+        listOfFavsDidChange()
+    }
+    
+    override func listOfFavsDidChange() {
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
     }
+    
 
     // MARK: - Table view delegate
     override func tableView(tableView: UITableView,
                             didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //Averiguar cual es el libro
         if let book = model.bookAtIndex(indexPath.row, forTag: model.tagForIndex(indexPath.section)){
+            
             // Avisar al delegado
             delegate?.libraryViewController(self, didSelectBook: book)
+           
             
-            //Enviamos misma info vía notificaciones
-            let nc = NSNotificationCenter.defaultCenter()
-            
-            let notif = NSNotification(name: SelectedBookDidChangeNotification, object: self, userInfo: [BookKey : book])
-            nc.postNotification(notif)
-            
-            let bkVC = BookViewController(model: book)
-            
-            //Hacerle un Push
-            navigationController?.pushViewController(bkVC, animated: true)
         }
         
     }
@@ -102,7 +100,11 @@ class TagLibraryViewController: LibraryViewControler {
         return model.tagForIndex(section).name
     }
     
+    
 }
 
+protocol ListOfFavoritesChangedDelegate{
+    func listOfFavsDidChange()
+}
 
 

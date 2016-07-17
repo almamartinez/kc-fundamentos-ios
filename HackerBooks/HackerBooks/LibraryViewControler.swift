@@ -10,19 +10,17 @@ import UIKit
 
 let SelectedBookDidChangeNotification = "switch books"
 
-class LibraryViewControler: UITableViewController {
+class LibraryViewControler: UITableViewController, ListOfFavoritesChangedDelegate  {
 
     //Esta tabla va a contener los libros ordenados alfabéticamente
 
     //MARK: - Properties
     let model : AGTLibrary
     var delegate : LibraryViewControllerDelegate?
-    
-    
-    //MARK: - Initialize
+       //MARK: - Initialize
     init(model : AGTLibrary){
         self.model = model
-        
+      
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,6 +36,13 @@ class LibraryViewControler: UITableViewController {
         nc.addObserver(self, selector: #selector(reloadCell), name: BookImageDidChangeNotification, object: nil)
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.removeObserver(self)
+    }
+    
+    //MARK: - Selector
     @objc
     func reloadCell(notif : NSNotification){
         if let book = notif.userInfo?[BookKey] as? AGTBook,
@@ -57,20 +62,12 @@ class LibraryViewControler: UITableViewController {
         //Averiguar cual es el libro
         let book = model.books[indexPath.row]
         
-        
+    
         // Avisar al delegado
-      //  delegate?.libraryViewController(self, didSelectBook: book)
+        delegate?.libraryViewController(self, didSelectBook: book)
+               
         
-        //Enviamos misma info vía notificaciones
-        let nc = NSNotificationCenter.defaultCenter()
-        
-        let notif = NSNotification(name: SelectedBookDidChangeNotification, object: self, userInfo: [BookKey : book])
-        nc.postNotification(notif)
-        
-        let bkVC = BookViewController(model: book)
-        
-        //Hacerle un Push
-        navigationController?.pushViewController(bkVC, animated: true)
+       
     }
     
     // MARK: - Table view data source
@@ -112,6 +109,20 @@ class LibraryViewControler: UITableViewController {
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Título"
     }
+    
+    func listOfFavsDidChange() {
+    
+    }
+}
+
+extension LibraryViewControler: LibraryViewControllerDelegate{
+    func libraryViewController(vc: LibraryViewControler, didSelectBook book: AGTBook){
+        let bkVC = BookViewController(model: book)
+        bkVC.favsDelegate = self
+        //Hacerle un Push
+        navigationController?.pushViewController(bkVC, animated: true)
+    }
+    
 }
 
 protocol LibraryViewControllerDelegate {

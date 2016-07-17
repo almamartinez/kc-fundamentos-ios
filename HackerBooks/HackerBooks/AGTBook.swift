@@ -80,14 +80,18 @@ class AGTBook: Comparable {
         }
     }
     
-    var bookPdfData : NSData {
+    var bookPdfData : NSData? {
         get{
-            do{
-                return try loadPdf(fromURL: imgUrl)
-            }catch{
-                fatalError("Error while loading a Pdf")
+            //Si está en userDefaults, lo devolvemos tal cual
+            let usrDef = NSUserDefaults()
+            if let listPdfs = usrDef.dictionaryForKey(PDFList),
+                dataPdf = listPdfs[pdfUrl.absoluteString] as? NSData{
+                return dataPdf
+            }else
+            {
+                let pdf = AsyncPdf(pdfUrl: pdfUrl)
+                return pdf.dataPDF
             }
-
         }
     }
     
@@ -104,7 +108,7 @@ class AGTBook: Comparable {
         let usrDef = NSUserDefaults()
         var listOfFavs = usrDef.arrayForKey(favoritesBooks)
         if listOfFavs == nil{
-            listOfFavs=[AnyObject]?()
+            listOfFavs=[AnyObject]()
         }
         if isFavourite{
             //Eliminarlo de la lista
